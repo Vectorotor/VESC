@@ -31,6 +31,7 @@
 #include "app.h"
 #include "crc.h"
 #include "packet.h"
+#include "MIR.h"
 
 // Settings
 #define CANDx			CAND1
@@ -143,6 +144,53 @@ static THD_FUNCTION(cancom_read_thread, arg) {
 	chEvtUnregister(&CANDx.rxfull_event, &el);
 }
 
+bool MIR_CAN_Packet(CANRxFrame rxmsg)
+{
+	uint8_t id = rxmsg.EID & 0xFF;
+	CAN_PACKET_ID cmd = rxmsg.EID >> 8;
+
+	switch (cmd) 
+	{
+	case MIR_PING:
+		timeout_reset();
+		break;
+
+	case MIR_SET_DUTY:
+	case MIR_SET_DUTY_GET_TELEMETRY:
+		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
+		{
+			uint16_t dutyI = 0;
+
+			memcpy(&dutyI, &(rxmsg.data8[2 * (app_get_configuration()->controller_id - id)]), 2);
+
+			float dutyD = fabs((float)dutyI / 60000.0);
+
+			mc_interface_set_duty(dutyD);
+		}
+
+		timeout_reset();
+
+		if (cmd != MIR_SET_DUTY_GET_TELEMETRY) break;
+
+	case MIR_GET_TELEMETRY:
+	{
+		VESC_MIR_TELEMETRY0 telemetry;
+		telemetry.rpm = mc_interface_get_rpm();
+		telemetry.current = mc_interface_get_tot_current() * 100.0;
+		telemetry.duty = mc_interface_get_duty_cycle_now() * 30000.0;
+		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() *2.0;
+		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() *2.0;
+		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY0 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
+	}
+	timeout_reset();
+	break;
+
+	default:
+		return false;
+	}
+	return true;
+}
+
 static THD_FUNCTION(cancom_process_thread, arg) {
 	(void)arg;
 
@@ -162,7 +210,7 @@ static THD_FUNCTION(cancom_process_thread, arg) {
 		while (rx_frame_read != rx_frame_write) {
 			CANRxFrame rxmsg = rx_frames[rx_frame_read++];
 
-			if (rxmsg.IDE == CAN_IDE_EXT) {
+			if ( !MIR_CAN_Packet(rxmsg) && (rxmsg.IDE == CAN_IDE_EXT)) {
 				uint8_t id = rxmsg.EID & 0xFF;
 				CAN_PACKET_ID cmd = rxmsg.EID >> 8;
 				can_status_msg *stat_tmp;
@@ -282,7 +330,7 @@ static THD_FUNCTION(cancom_process_thread, arg) {
 
 				switch (cmd) {
 				case CAN_PACKET_STATUS:
-					for (int i = 0;i < CAN_STATUS_MSGS_TO_STORE;i++) {
+					for (int i = 0; i < CAN_STATUS_MSGS_TO_STORE; i++) {
 						stat_tmp = &stat_msgs[i];
 						if (stat_tmp->id == id || stat_tmp->id == -1) {
 							ind = 0;
@@ -295,10 +343,10 @@ static THD_FUNCTION(cancom_process_thread, arg) {
 						}
 					}
 					break;
-
 				default:
 					break;
 				}
+
 			} else {
 				if (sid_callback) {
 					sid_callback(rxmsg.SID, rxmsg.data8, rxmsg.DLC);

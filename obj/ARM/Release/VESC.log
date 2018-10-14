@@ -1,0 +1,7 @@
+﻿  Validating sources
+  Copying sources remotely to 'localhost'
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Application Type\Linux\1.0\Linux.Makefile.Targets(192,5): warning : Build command not configured. Skipping...
+  Invoking 'make', working directory: '/home/linarism/projects/VESC'
+  make: 'build/BLDC_4_ChibiOS.bin' is up to date.
+  
+  Copying file '/home/linarism/projects/VESC/build/BLDC_4_ChibiOS.bin' to 'C:\Users\linar\source\repos\VESC\VESC\build\BLDC_4_ChibiOS.bin'

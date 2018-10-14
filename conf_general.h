@@ -81,6 +81,8 @@
 //#define MCCONF_DEFAULT_USER			"mcconf_sp_540kv.h"
 //#define MCCONF_DEFAULT_USER			"mcconf_castle_2028.h"
 //#define MCCONF_DEFAULT_USER			"mcconf_ellwee.h"
+#define MCCONF_DEFAULT_USER			"mcconf_MIR.h"
+
 
 /*
  * Select default user app configuration
@@ -88,6 +90,7 @@
 //#define APPCONF_DEFAULT_USER		"appconf_example_ppm.h"
 //#define APPCONF_DEFAULT_USER		"appconf_custom.h"
 //#define APPCONF_DEFAULT_USER		"appconf_ellwee.h"
+#define APPCONF_DEFAULT_USER		"appconf_MIR.h"
 
 /*
  * Set APP_CUSTOM_TO_USE to the name of the main C file of the custom application.
@@ -102,8 +105,8 @@
 /*
  * Settings for the external LEDs (hardcoded for now)
  */
-#define LED_EXT_BATT_LOW			28.0
-#define LED_EXT_BATT_HIGH			33.0
+#define LED_EXT_BATT_LOW			20.0
+#define LED_EXT_BATT_HIGH			22.2
 
 /*
  * Output WS2811 signal on the HALL1 pin. Notice that hall sensors can't be used
