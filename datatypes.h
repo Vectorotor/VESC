@@ -530,6 +530,14 @@ typedef struct __attribute__((__packed__)) {
 	uint8_t tempEsc;	//in 0.5C
 } VESC_MIR_TELEMETRY0;
 
+typedef struct __attribute__((__packed__)) {
+	uint16_t tacho;
+	uint16_t millivolts;
+	uint16_t milliwatthours;
+	mc_fault_code fault;
+	mc_state state;
+} VESC_MIR_TELEMETRY1;
+
 // Logged fault data
 typedef struct {
 	mc_fault_code fault;

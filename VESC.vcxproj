@@ -34,6 +34,8 @@
     <BuildCommandLine>
     </BuildCommandLine>
     <RemoteProjectDir>$(RemoteRootDir)$(ProjectName)</RemoteProjectDir>
+    <RemotePreBuildEventUseInBuild>false</RemotePreBuildEventUseInBuild>
+    <RemotePostBuildEventUseInBuild>false</RemotePostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="applications\app.c" />

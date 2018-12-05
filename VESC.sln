@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VESC", "VESC.vcxproj", "{2348B63F-18CF-4241-A109-0A85D2CF0552}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2348B63F-18CF-4241-A109-0A85D2CF0552}.Release|ARM.ActiveCfg = Release|ARM
+		{2348B63F-18CF-4241-A109-0A85D2CF0552}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A68EC1C5-A4E4-41DB-88FF-4289D7934028}
+	EndGlobalSection
+EndGlobal

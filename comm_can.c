@@ -26,6 +26,7 @@
 #include "datatypes.h"
 #include "buffer.h"
 #include "mc_interface.h"
+#include "mcpwm.h"
 #include "timeout.h"
 #include "commands.h"
 #include "app.h"
@@ -166,11 +167,17 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 			float dutyD = fabs((float)dutyI / 60000.0);
 
 			mc_interface_set_duty(dutyD);
+			if (cmd != MIR_SET_DUTY_GET_TELEMETRY)
+			{
+				timeout_reset();
+				break;
+			}
 		}
-
-		timeout_reset();
-
-		if (cmd != MIR_SET_DUTY_GET_TELEMETRY) break;
+		else
+		{
+			timeout_reset();
+			break;
+		}
 
 	case MIR_GET_TELEMETRY:
 	{
@@ -181,6 +188,15 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() *2.0;
 		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() *2.0;
 		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY0 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
+	}
+	{
+		VESC_MIR_TELEMETRY1 telemetry;
+		telemetry.millivolts = GET_INPUT_VOLTAGE() * 1000.0;
+		telemetry.tacho = mc_interface_get_tachometer_abs_value(1);
+		telemetry.milliwatthours = mc_interface_get_watt_hours(1) * 1000.0;
+		telemetry.fault = mc_interface_get_fault();
+		telemetry.state = mc_interface_get_state();
+		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY1 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
 	}
 	timeout_reset();
 	break;
