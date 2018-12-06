@@ -149,7 +149,7 @@ C:\Users\linar\source\repos\VESC\ChibiOS_3.0.2\testhal\STM32\STM32F4xx\USB_CDC\m
 C:\Users\linar\source\repos\VESC\ChibiOS_3.0.2\testhal\STM32\STM32F4xx\USB_CDC_IAD\main.c|636796285401109870|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\ChibiOS_3.0.2\testhal\STM32\STM32F4xx\USB_CDC_IAD\usbcfg.c|636796285401139895|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\commands.c|636796285402110779|~/projects/VESC|
-C:\Users\linar\source\repos\VESC\comm_can.c|636796322006592078|~/projects/VESC|
+C:\Users\linar\source\repos\VESC\comm_can.c|636796337969793462|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\comm_usb.c|636796285402060732|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\comm_usb_serial.c|636796285402080749|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\conf_general.c|636796285402130796|~/projects/VESC|
@@ -440,7 +440,7 @@ C:\Users\linar\source\repos\VESC\comm_usb.h|636796285402070742|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\comm_usb_serial.h|636796285402080749|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\conf_general.h|636796285402140803|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\crc.h|636796285402160823|~/projects/VESC|
-C:\Users\linar\source\repos\VESC\datatypes.h|636796320140144131|~/projects/VESC|
+C:\Users\linar\source\repos\VESC\datatypes.h|636796334482585669|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\digital_filter.h|636796285402190853|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\eeprom.h|636796285402220874|~/projects/VESC|
 C:\Users\linar\source\repos\VESC\encoder.h|636796285402250910|~/projects/VESC|

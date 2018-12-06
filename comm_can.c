@@ -145,41 +145,8 @@ static THD_FUNCTION(cancom_read_thread, arg) {
 	chEvtUnregister(&CANDx.rxfull_event, &el);
 }
 
-bool MIR_CAN_Packet(CANRxFrame rxmsg)
+void MIR_Telemetry()
 {
-	uint8_t id = rxmsg.EID & 0xFF;
-	CAN_PACKET_ID cmd = rxmsg.EID >> 8;
-
-	switch (cmd) 
-	{
-	case MIR_PING:
-		timeout_reset();
-		break;
-
-	case MIR_SET_DUTY:
-	case MIR_SET_DUTY_GET_TELEMETRY:
-		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
-		{
-			uint16_t dutyI = 0;
-
-			memcpy(&dutyI, &(rxmsg.data8[2 * (app_get_configuration()->controller_id - id)]), 2);
-
-			float dutyD = fabs((float)dutyI / 60000.0);
-
-			mc_interface_set_duty(dutyD);
-			if (cmd != MIR_SET_DUTY_GET_TELEMETRY)
-			{
-				timeout_reset();
-				break;
-			}
-		}
-		else
-		{
-			timeout_reset();
-			break;
-		}
-
-	case MIR_GET_TELEMETRY:
 	{
 		VESC_MIR_TELEMETRY0 telemetry;
 		telemetry.rpm = mc_interface_get_rpm();
@@ -198,6 +165,39 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 		telemetry.state = mc_interface_get_state();
 		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY1 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
 	}
+}
+
+bool MIR_CAN_Packet(CANRxFrame rxmsg)
+{
+	uint8_t id = rxmsg.EID & 0xFF;
+	CAN_PACKET_ID cmd = rxmsg.EID >> 8;
+
+	switch (cmd) 
+	{
+	case MIR_PING:
+		timeout_reset();
+		break;
+
+	case MIR_SET_DUTY_GET_TELEMETRY:
+		MIR_Telemetry();
+
+	case MIR_SET_DUTY:
+		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
+		{
+			uint16_t dutyI = 0;
+
+			memcpy(&dutyI, &(rxmsg.data8[2 * (app_get_configuration()->controller_id - id)]), 2);
+
+			float dutyD = fabs((float)dutyI / 60000.0);
+
+			mc_interface_set_duty(dutyD);
+
+			timeout_reset();
+		}
+		break;
+
+	case MIR_GET_TELEMETRY:
+	MIR_Telemetry();
 	timeout_reset();
 	break;
 

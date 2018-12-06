@@ -525,7 +525,7 @@ typedef enum {
 typedef struct __attribute__((__packed__)) {
 	uint16_t rpm;
 	int16_t current;	//in 0.01A
-	uint16_t duty;		//in *30000%
+	int16_t duty;		//in *30000%
 	uint8_t tempMotor;	//in 0.5C
 	uint8_t tempEsc;	//in 0.5C
 } VESC_MIR_TELEMETRY0;
