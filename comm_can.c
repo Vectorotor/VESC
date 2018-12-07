@@ -145,7 +145,7 @@ static THD_FUNCTION(cancom_read_thread, arg) {
 	chEvtUnregister(&CANDx.rxfull_event, &el);
 }
 
-void MIR_Telemetry()
+void MIR_Telemetry(void)
 {
 	{
 		VESC_MIR_TELEMETRY0 telemetry;
@@ -179,18 +179,25 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 		break;
 
 	case MIR_SET_DUTY_GET_TELEMETRY:
-		MIR_Telemetry();
+		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
+		{
+			int16_t dutyI = 0;
+			memcpy(&dutyI, &rxmsg.data8[2 * (app_get_configuration()->controller_id - id)], 2);
+
+			mc_interface_set_duty(((float)dutyI) / 30000.0);
+
+			timeout_reset();
+			MIR_Telemetry();
+		}
+		break;
 
 	case MIR_SET_DUTY:
 		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
 		{
-			uint16_t dutyI = 0;
+			int16_t dutyI = 0;
+			memcpy(&dutyI, &rxmsg.data8[2 * (app_get_configuration()->controller_id - id)], 2);
 
-			memcpy(&dutyI, &(rxmsg.data8[2 * (app_get_configuration()->controller_id - id)]), 2);
-
-			float dutyD = fabs((float)dutyI / 60000.0);
-
-			mc_interface_set_duty(dutyD);
+			mc_interface_set_duty(((float)dutyI) / 30000.0);
 
 			timeout_reset();
 		}
