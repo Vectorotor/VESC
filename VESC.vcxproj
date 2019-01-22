@@ -29,7 +29,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <OutDir>$(ProjectDir)build</OutDir>
-    <RemoteBuildOutputs>build/BLDC_4_ChibiOS.bin</RemoteBuildOutputs>
+    <RemoteBuildOutputs>$(RemoteProjectDir)/build/BLDC_4_ChibiOS.bin</RemoteBuildOutputs>
     <RemoteBuildCommandLine>make</RemoteBuildCommandLine>
     <BuildCommandLine>
     </BuildCommandLine>
