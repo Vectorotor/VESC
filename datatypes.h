@@ -513,22 +513,25 @@ typedef enum {
 	CAN_PACKET_SET_CURRENT_BRAKE_REL,
 	CAN_PACKET_SET_CURRENT_HANDBRAKE,
 	CAN_PACKET_SET_CURRENT_HANDBRAKE_REL,
-	MIR_PING = 64,
-	MIR_SET_DUTY,
-	MIR_SET_DUTY_GET_TELEMETRY,
-	MIR_GET_TELEMETRY = 128,
-	MIR_TELEMETRY0,
-	MIR_TELEMETRY1
+	VPT_PING = 64,
+	VPT_SET_DUTY,
+	VPT_SET_DUTY_GET_TELEMETRY,
+	VPT_GET_TELEMETRY = 128,
+	VPT_TELEMETRY0,
+	VPT_TELEMETRY1
 } CAN_PACKET_ID;
 
-//MIR
+//VPT
+
+#define VPT_CAN_SYS_ID 0xAA00
+
 typedef struct __attribute__((__packed__)) {
-	uint16_t rpm;
+	uint16_t halferpm;
 	int16_t current;	//in 0.01A
 	int16_t duty;		//in *30000%
 	uint8_t tempMotor;	//in 0.5C
 	uint8_t tempEsc;	//in 0.5C
-} VESC_MIR_TELEMETRY0;
+} VESC_VPT_TELEMETRY0;
 
 typedef struct __attribute__((__packed__)) {
 	uint16_t tacho;
@@ -536,7 +539,7 @@ typedef struct __attribute__((__packed__)) {
 	uint16_t milliwatthours;
 	mc_fault_code fault;
 	mc_state state;
-} VESC_MIR_TELEMETRY1;
+} VESC_VPT_TELEMETRY1;
 
 // Logged fault data
 typedef struct {

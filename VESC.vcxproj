@@ -224,7 +224,6 @@
     <ClCompile Include="mcpwm.c" />
     <ClCompile Include="mcpwm_foc.c" />
     <ClCompile Include="mc_interface.c" />
-    <ClCompile Include="MIR.cpp" />
     <ClCompile Include="nrf\nrf_driver.c" />
     <ClCompile Include="nrf\rf.c" />
     <ClCompile Include="nrf\rfhelp.c" />
@@ -518,7 +517,6 @@
     <ClInclude Include="mcpwm_foc.h" />
     <ClInclude Include="mcuconf.h" />
     <ClInclude Include="mc_interface.h" />
-    <ClInclude Include="MIR.h" />
     <ClInclude Include="nrf\nrf_driver.h" />
     <ClInclude Include="nrf\rf.h" />
     <ClInclude Include="nrf\rfhelp.h" />

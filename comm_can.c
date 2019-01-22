@@ -32,7 +32,6 @@
 #include "app.h"
 #include "crc.h"
 #include "packet.h"
-#include "MIR.h"
 
 // Settings
 #define CANDx			CAND1
@@ -145,40 +144,40 @@ static THD_FUNCTION(cancom_read_thread, arg) {
 	chEvtUnregister(&CANDx.rxfull_event, &el);
 }
 
-void MIR_Telemetry(void)
+void VPT_Telemetry(void)
 {
 	{
-		VESC_MIR_TELEMETRY0 telemetry;
-		telemetry.rpm = mc_interface_get_rpm();
+		VESC_VPT_TELEMETRY0 telemetry;
+		telemetry.halferpm = mc_interface_get_rpm()/2;
 		telemetry.current = mc_interface_get_tot_current() * 100.0;
 		telemetry.duty = mc_interface_get_duty_cycle_now() * 30000.0;
 		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() *2.0;
 		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() *2.0;
-		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY0 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id)<<16) | (uint32_t)VPT_TELEMETRY0, (uint8_t*)&telemetry, sizeof(telemetry));
 	}
 	{
-		VESC_MIR_TELEMETRY1 telemetry;
+		VESC_VPT_TELEMETRY1 telemetry;
 		telemetry.millivolts = GET_INPUT_VOLTAGE() * 1000.0;
 		telemetry.tacho = mc_interface_get_tachometer_abs_value(1);
 		telemetry.milliwatthours = mc_interface_get_watt_hours(1) * 1000.0;
 		telemetry.fault = mc_interface_get_fault();
 		telemetry.state = mc_interface_get_state();
-		comm_can_transmit_eid(app_get_configuration()->controller_id | ((uint32_t)MIR_TELEMETRY1 << 8), (uint8_t*)&telemetry, sizeof(telemetry));
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id)<<16) | (uint32_t)VPT_TELEMETRY1, (uint8_t*)&telemetry, sizeof(telemetry));
 	}
 }
 
-bool MIR_CAN_Packet(CANRxFrame rxmsg)
+bool VPT_CAN_Packet(CANRxFrame rxmsg)
 {
 	uint8_t id = rxmsg.EID & 0xFF;
 	CAN_PACKET_ID cmd = rxmsg.EID >> 8;
 
 	switch (cmd) 
 	{
-	case MIR_PING:
+	case VPT_PING:
 		timeout_reset();
 		break;
 
-	case MIR_SET_DUTY_GET_TELEMETRY:
+	case VPT_SET_DUTY_GET_TELEMETRY:
 		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
 		{
 			int16_t dutyI = 0;
@@ -187,11 +186,11 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 			mc_interface_set_duty(((float)dutyI) / 30000.0);
 
 			timeout_reset();
-			MIR_Telemetry();
+			VPT_Telemetry();
 		}
 		break;
 
-	case MIR_SET_DUTY:
+	case VPT_SET_DUTY:
 		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
 		{
 			int16_t dutyI = 0;
@@ -203,8 +202,8 @@ bool MIR_CAN_Packet(CANRxFrame rxmsg)
 		}
 		break;
 
-	case MIR_GET_TELEMETRY:
-	MIR_Telemetry();
+	case VPT_GET_TELEMETRY:
+	VPT_Telemetry();
 	timeout_reset();
 	break;
 
@@ -233,7 +232,7 @@ static THD_FUNCTION(cancom_process_thread, arg) {
 		while (rx_frame_read != rx_frame_write) {
 			CANRxFrame rxmsg = rx_frames[rx_frame_read++];
 
-			if ( !MIR_CAN_Packet(rxmsg) && (rxmsg.IDE == CAN_IDE_EXT)) {
+			if ( !VPT_CAN_Packet(rxmsg) && (rxmsg.IDE == CAN_IDE_EXT)) {
 				uint8_t id = rxmsg.EID & 0xFF;
 				CAN_PACKET_ID cmd = rxmsg.EID >> 8;
 				can_status_msg *stat_tmp;
@@ -416,7 +415,7 @@ void comm_can_transmit_eid(uint32_t id, uint8_t *data, uint8_t len) {
 #if CAN_ENABLE
 	CANTxFrame txmsg;
 	txmsg.IDE = CAN_IDE_EXT;
-	txmsg.EID = id;
+	txmsg.EID = id | VPT_CAN_SYS_ID;
 	txmsg.RTR = CAN_RTR_DATA;
 	txmsg.DLC = len;
 	memcpy(txmsg.data8, data, len);
