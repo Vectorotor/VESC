@@ -29,7 +29,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <OutDir>$(ProjectDir)build</OutDir>
-    <RemoteBuildOutputs>$(RemoteProjectDir)/build/BLDC_4_ChibiOS.bin</RemoteBuildOutputs>
+    <RemoteBuildOutputs>build/BLDC_4_ChibiOS.bin</RemoteBuildOutputs>
     <RemoteBuildCommandLine>make</RemoteBuildCommandLine>
     <BuildCommandLine>
     </BuildCommandLine>
@@ -240,7 +240,7 @@
     <ClInclude Include="appconf\appconf_custom.h" />
     <ClInclude Include="appconf\appconf_default.h" />
     <ClInclude Include="appconf\appconf_example_ppm.h" />
-    <ClInclude Include="appconf\appconf_MIR.h" />
+    <ClInclude Include="appconf\appconf_VPT.h" />
     <ClInclude Include="applications\app.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="buffer.h" />
@@ -511,7 +511,7 @@
     <ClInclude Include="ledpwm.h" />
     <ClInclude Include="led_external.h" />
     <ClInclude Include="mcconf\mcconf_default.h" />
-    <ClInclude Include="mcconf\mcconf_MIR.h" />
+    <ClInclude Include="mcconf\mcconf_VPT.h" />
     <ClInclude Include="mcconf\mcconf_sten.h" />
     <ClInclude Include="mcpwm.h" />
     <ClInclude Include="mcpwm_foc.h" />

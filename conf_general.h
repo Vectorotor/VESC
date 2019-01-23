@@ -81,7 +81,7 @@
 //#define MCCONF_DEFAULT_USER			"mcconf_sp_540kv.h"
 //#define MCCONF_DEFAULT_USER			"mcconf_castle_2028.h"
 //#define MCCONF_DEFAULT_USER			"mcconf_ellwee.h"
-#define MCCONF_DEFAULT_USER			"mcconf_MIR.h"
+#define MCCONF_DEFAULT_USER			"mcconf_VPT.h"
 
 
 /*
@@ -90,7 +90,7 @@
 //#define APPCONF_DEFAULT_USER		"appconf_example_ppm.h"
 //#define APPCONF_DEFAULT_USER		"appconf_custom.h"
 //#define APPCONF_DEFAULT_USER		"appconf_ellwee.h"
-#define APPCONF_DEFAULT_USER		"appconf_MIR.h"
+#define APPCONF_DEFAULT_USER		"appconf_VPT.h"
 
 /*
  * Set APP_CUSTOM_TO_USE to the name of the main C file of the custom application.

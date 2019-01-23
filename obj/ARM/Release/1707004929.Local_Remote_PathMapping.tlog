@@ -346,7 +346,7 @@ C:\Users\linar\source\repos\linarism\VESC\appconf|/home/linar/projects/VESC/appc
 @C:\Users\linar\source\repos\linarism\VESC\appconf|@/home/linar/projects/VESC/appconf
 C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_default.h|/home/linar/projects/VESC/appconf/appconf_default.h
 C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_example_ppm.h|/home/linar/projects/VESC/appconf/appconf_example_ppm.h
-C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_MIR.h|/home/linar/projects/VESC/appconf/appconf_MIR.h
+C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_VPT.h|/home/linar/projects/VESC/appconf/appconf_VPT.h
 C:\Users\linar\source\repos\linarism\VESC\applications\app.h|/home/linar/projects/VESC/applications/app.h
 C:\Users\linar\source\repos\linarism\VESC\board.h|/home/linar/projects/VESC/board.h
 C:\Users\linar\source\repos\linarism\VESC\buffer.h|/home/linar/projects/VESC/buffer.h
@@ -645,7 +645,7 @@ C:\Users\linar\source\repos\linarism\VESC\led_external.h|/home/linar/projects/VE
 C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_default.h|/home/linar/projects/VESC/mcconf/mcconf_default.h
 C:\Users\linar\source\repos\linarism\VESC\mcconf|/home/linar/projects/VESC/mcconf
 @C:\Users\linar\source\repos\linarism\VESC\mcconf|@/home/linar/projects/VESC/mcconf
-C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_MIR.h|/home/linar/projects/VESC/mcconf/mcconf_MIR.h
+C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_VPT.h|/home/linar/projects/VESC/mcconf/mcconf_VPT.h
 C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_sten.h|/home/linar/projects/VESC/mcconf/mcconf_sten.h
 C:\Users\linar\source\repos\linarism\VESC\mcpwm.h|/home/linar/projects/VESC/mcpwm.h
 C:\Users\linar\source\repos\linarism\VESC\mcpwm_foc.h|/home/linar/projects/VESC/mcpwm_foc.h

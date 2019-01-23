@@ -4,4 +4,4 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCT
   Invoking 'make', working directory: '/home/linar/projects/VESC'
   make: 'build/BLDC_4_ChibiOS.bin' is up to date.
   
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Application Type\Linux\1.0\Linux.Makefile.Targets(195,5): warning : Cannot copy file '/home/linar/projects/VESC/~/projects//VESC/build/BLDC_4_ChibiOS.bin', file not found on the remote system.
+  Copying file '/home/linar/projects/VESC/build/BLDC_4_ChibiOS.bin' to 'C:\Users\linar\source\repos\linarism\VESC\build\BLDC_4_ChibiOS.bin'

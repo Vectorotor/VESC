@@ -151,7 +151,7 @@ C:\Users\linar\source\repos\linarism\VESC\ChibiOS_3.0.2\testhal\STM32\STM32F4xx\
 C:\Users\linar\source\repos\linarism\VESC\commands.c|636836915647708651|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\comm_can.c|636836976755284214|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\comm_usb.c|636836915647678625|~/projects/VESC|
-C:\Users\linar\source\repos\linarism\VESC\comm_usb_serial.c|636836915647688633|~/projects/VESC|
+C:\Users\linar\source\repos\linarism\VESC\comm_usb_serial.c|636837960269864858|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\conf_general.c|636836915647718660|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\crc.c|636836915647738678|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\digital_filter.c|636836915647758697|~/projects/VESC|
@@ -198,7 +198,7 @@ C:\Users\linar\source\repos\linarism\VESC\ws2811.c|636836915648709560|~/projects
 C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_custom.h|636836915646998006|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_default.h|636836915647008015|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_example_ppm.h|636836915647017932|~/projects/VESC|
-C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_MIR.h|636836915646987996|~/projects/VESC|
+C:\Users\linar\source\repos\linarism\VESC\appconf\appconf_VPT.h|636836915646987996|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\applications\app.h|636836915647038042|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\board.h|636836915647098097|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\buffer.h|636836915647118023|~/projects/VESC|
@@ -437,7 +437,7 @@ C:\Users\linar\source\repos\linarism\VESC\commands.h|636836915647708651|~/projec
 C:\Users\linar\source\repos\linarism\VESC\comm_can.h|636836915647668615|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\comm_usb.h|636836915647678625|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\comm_usb_serial.h|636836915647698642|~/projects/VESC|
-C:\Users\linar\source\repos\linarism\VESC\conf_general.h|636836915647728669|~/projects/VESC|
+C:\Users\linar\source\repos\linarism\VESC\conf_general.h|636837957334857360|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\crc.h|636836915647748687|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\datatypes.h|636836970316023343|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\digital_filter.h|636836915647768707|~/projects/VESC|
@@ -469,7 +469,7 @@ C:\Users\linar\source\repos\linarism\VESC\isr_vector_table.h|636836915648159060|
 C:\Users\linar\source\repos\linarism\VESC\ledpwm.h|636836915648199096|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\led_external.h|636836915648189088|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_default.h|636836915648249142|~/projects/VESC|
-C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_MIR.h|636836915648239133|~/projects/VESC|
+C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_VPT.h|636838477197803435|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\mcconf\mcconf_sten.h|636836915648259151|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\mcpwm.h|636836915648289178|~/projects/VESC|
 C:\Users\linar\source\repos\linarism\VESC\mcpwm_foc.h|636836915648309196|~/projects/VESC|
