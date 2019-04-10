@@ -149,7 +149,7 @@ void VPT_Telemetry(void)
 	{
 		VESC_VPT_TELEMETRY0 telemetry;
 		telemetry.halferpm = mc_interface_get_rpm()/2;
-		telemetry.current = mc_interface_get_tot_current() * 100.0;
+		telemetry.current = mc_interface_get_tot_current_filtered() * 100.0;
 		telemetry.duty = mc_interface_get_duty_cycle_now() * 30000.0;
 		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() *2.0;
 		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() *2.0;
