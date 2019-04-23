@@ -202,6 +202,31 @@ bool VPT_CAN_Packet(CANRxFrame rxmsg)
 		}
 		break;
 
+	case VPT_SET_SPEED_GET_TELEMETRY:
+		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
+		{
+			int16_t speedI = 0;
+			memcpy(&speedI, &rxmsg.data8[2 * (app_get_configuration()->controller_id - id)], 2);
+
+			mc_interface_set_pid_speed(speedI * 3);
+
+			timeout_reset();
+			VPT_Telemetry();
+		}
+		break;
+
+	case VPT_SET_SPEED:
+		if ((app_get_configuration()->controller_id >= id) && (app_get_configuration()->controller_id < (id + (rxmsg.DLC / 2))))
+		{
+			int16_t speedI = 0;
+			memcpy(&speedI, &rxmsg.data8[2 * (app_get_configuration()->controller_id - id)], 2);
+
+			mc_interface_set_pid_speed(speedI * 3);
+
+			timeout_reset();
+		}
+		break;
+
 	case VPT_GET_TELEMETRY:
 	VPT_Telemetry();
 	timeout_reset();
