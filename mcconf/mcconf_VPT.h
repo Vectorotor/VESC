@@ -130,7 +130,7 @@
 
 // Maximum Duty Cycle
 #ifndef MCCONF_L_MAX_DUTY
-#define MCCONF_L_MAX_DUTY 1.0
+#define MCCONF_L_MAX_DUTY 0.9999
 #endif
 
 // Maximum Wattage
@@ -415,12 +415,12 @@
 
 // Speed PID Ki
 #ifndef MCCONF_S_PID_KI
-#define MCCONF_S_PID_KI 0.005
+#define MCCONF_S_PID_KI 0.004
 #endif
 
 // Speed PID Kd
 #ifndef MCCONF_S_PID_KD
-#define MCCONF_S_PID_KD 0.0001
+#define MCCONF_S_PID_KD 0.0002
 #endif
 
 // Speed PID Kd Filer
