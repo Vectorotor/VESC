@@ -75,7 +75,7 @@
 
 // Minimum Input Voltage
 #ifndef MCCONF_L_MIN_VOLTAGE
-#define MCCONF_L_MIN_VOLTAGE 18.6
+#define MCCONF_L_MIN_VOLTAGE 16.0
 #endif
 
 // Maximum Input Voltage
@@ -85,12 +85,12 @@
 
 // Battery Voltage Cutoff Start
 #ifndef MCCONF_L_BATTERY_CUT_START
-#define MCCONF_L_BATTERY_CUT_START 19
+#define MCCONF_L_BATTERY_CUT_START 16.0
 #endif
 
 // Battery Voltage Cutoff End
 #ifndef MCCONF_L_BATTERY_CUT_END
-#define MCCONF_L_BATTERY_CUT_END 18.6
+#define MCCONF_L_BATTERY_CUT_END 16.0
 #endif
 
 // Slow ABS Current Limit
@@ -100,7 +100,7 @@
 
 // MOSFET Temp Cutoff Start
 #ifndef MCCONF_L_LIM_TEMP_FET_START
-#define MCCONF_L_LIM_TEMP_FET_START 85
+#define MCCONF_L_LIM_TEMP_FET_START 90
 #endif
 
 // MOSFET Temp Cutoff End
@@ -110,7 +110,7 @@
 
 // Motor Temp Cutoff Start
 #ifndef MCCONF_L_LIM_TEMP_MOTOR_START
-#define MCCONF_L_LIM_TEMP_MOTOR_START 85
+#define MCCONF_L_LIM_TEMP_MOTOR_START 90
 #endif
 
 // Motor Temp Cutoff End
@@ -130,7 +130,7 @@
 
 // Maximum Duty Cycle
 #ifndef MCCONF_L_MAX_DUTY
-#define MCCONF_L_MAX_DUTY 0.99
+#define MCCONF_L_MAX_DUTY 1.0
 #endif
 
 // Maximum Wattage

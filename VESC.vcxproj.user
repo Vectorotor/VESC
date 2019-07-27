@@ -7,5 +7,6 @@
     <RemoteDebuggerCommand />
     <RemoteDebuggingMode />
     <DebuggerFlavor>LinuxDebugger</DebuggerFlavor>
+    <RemoteTarget>1707004929;localhost (username=, port=22, authentication=Password)</RemoteTarget>
   </PropertyGroup>
 </Project>

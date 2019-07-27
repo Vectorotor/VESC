@@ -36,6 +36,8 @@
     <RemoteProjectDir>$(RemoteRootDir)$(ProjectName)</RemoteProjectDir>
     <RemotePreBuildEventUseInBuild>false</RemotePreBuildEventUseInBuild>
     <RemotePostBuildEventUseInBuild>false</RemotePostBuildEventUseInBuild>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="applications\app.c" />
