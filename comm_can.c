@@ -55,6 +55,7 @@ static CANRxFrame rx_frames[RX_FRAMES_SIZE];
 static int rx_frame_read;
 static int rx_frame_write;
 static thread_t *process_tp;
+uint8_t telemetryCounter = 0;
 
 /*
  * 500KBaud, automatic wakeup, automatic recover
@@ -94,6 +95,8 @@ void comm_can_init(void) {
 			PAL_STM32_OSPEED_MID1);
 
 	canStart(&CANDx, &cancfg);
+
+	telemetryCounter = app_get_configuration()->controller_id;	//to stagger second packet sending
 
 	chThdCreateStatic(cancom_read_thread_wa, sizeof(cancom_read_thread_wa), NORMALPRIO + 1,
 			cancom_read_thread, NULL);
@@ -144,16 +147,17 @@ static THD_FUNCTION(cancom_read_thread, arg) {
 	chEvtUnregister(&CANDx.rxfull_event, &el);
 }
 
-void VPT_Telemetry(void)
+
+void VPT_Telemetry_Legacy(void)
 {
 	{
 		VESC_VPT_TELEMETRY0 telemetry;
-		telemetry.halferpm = mc_interface_get_rpm()/2;
+		telemetry.halferpm = mc_interface_get_rpm() / 2;
 		telemetry.current = mc_interface_get_tot_current_filtered() * 100.0;
 		telemetry.duty = mc_interface_get_duty_cycle_now() * 30000.0;
-		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() *2.0;
-		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() *2.0;
-		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id)<<16) | (uint32_t)VPT_TELEMETRY0, (uint8_t*)&telemetry, sizeof(telemetry));
+		telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() * 2.0;
+		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() * 2.0;
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id) << 16) | (uint32_t)VPT_TELEMETRY0, (uint8_t*)& telemetry, sizeof(telemetry));
 	}
 	{
 		VESC_VPT_TELEMETRY1 telemetry;
@@ -162,8 +166,44 @@ void VPT_Telemetry(void)
 		telemetry.milliwatthours = mc_interface_get_watt_hours(1) * 1000.0;
 		telemetry.fault = mc_interface_get_fault();
 		telemetry.state = mc_interface_get_state();
-		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id)<<16) | (uint32_t)VPT_TELEMETRY1, (uint8_t*)&telemetry, sizeof(telemetry));
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id) << 16) | (uint32_t)VPT_TELEMETRY1, (uint8_t*)& telemetry, sizeof(telemetry));
 	}
+}
+
+
+void VPT_Telemetry_Timed(void)
+{
+	{
+		VESC_VPT_TELEMETRY telemetry;
+
+		telemetry.halferpm = mc_interface_get_rpm() / 2;
+		telemetry.current = mc_interface_get_tot_current_filtered() * 100.0;
+		telemetry.duty = mc_interface_get_duty_cycle_now() * 30000.0;
+		telemetry.millivolts = GET_INPUT_VOLTAGE() * 1000.0;
+
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id) << 16) | (uint32_t)VPT_TELEMETRY, (uint8_t*)&telemetry, sizeof(telemetry));
+	}
+
+	telemetryCounter++;
+	if(telemetryCounter >= 250)
+	{
+		telemetryCounter = 0;
+
+		VESC_VPT_STATE telemetry;
+
+		//telemetry.tempMotor = (uint8_t)mc_interface_temp_motor_filtered() * 2.0;
+		telemetry.tempEsc = (uint8_t)mc_interface_temp_fet_filtered() * 2.0;
+		telemetry.fault = mc_interface_get_fault();
+		telemetry.state = mc_interface_get_state(); 
+
+		comm_can_transmit_eid((((uint32_t)app_get_configuration()->controller_id) << 16) | (uint32_t)VPT_STATE, (uint8_t*)&telemetry, sizeof(telemetry));
+	}
+}
+
+void VPT_Telemetry(void)
+{
+	//VPT_Telemetry_Legacy();
+	VPT_Telemetry_Timed();
 }
 
 bool VPT_CAN_Packet(CANRxFrame rxmsg)

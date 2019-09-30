@@ -520,12 +520,29 @@ typedef enum {
 	VPT_SET_SPEED_GET_TELEMETRY,
 	VPT_GET_TELEMETRY = 128,
 	VPT_TELEMETRY0,
-	VPT_TELEMETRY1
+	VPT_TELEMETRY1,
+	VPT_TELEMETRY,
+	VPT_STATE
 } CAN_PACKET_ID;
 
 //VPT
 
 #define VPT_CAN_SYS_ID 0xAA00
+
+typedef struct __attribute__((__packed__)) {
+	uint16_t halferpm;
+	int16_t current;	//in 0.01A
+	int16_t duty;		//in *30000%
+	uint16_t millivolts;
+} VESC_VPT_TELEMETRY;
+
+typedef struct __attribute__((__packed__))
+{
+	mc_fault_code fault;
+	mc_state state;
+	uint8_t tempEsc;	//in 0.5C
+	//uint8_t tempMotor;	//in 0.5C
+} VESC_VPT_STATE;
 
 typedef struct __attribute__((__packed__)) {
 	uint16_t halferpm;
